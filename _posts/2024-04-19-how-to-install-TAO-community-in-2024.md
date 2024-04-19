@@ -1,3 +1,11 @@
+---
+layout: article
+comments: true
+permalink: 2024/04/19/how-to-installtao-community-in-ubuntu-debian-servers/
+title: How to install TAO in Ubuntu and Debian servers (2024 - updated guide
+---
+
+
 # How to install TAO in Ubuntu and Debian servers (2024 - updated guide)
 
 Many are the reason for install TAO Community [Testing Assistée par Ordinateur](https://taotesting.com).
