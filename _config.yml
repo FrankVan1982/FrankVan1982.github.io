@@ -229,3 +229,4 @@ plugins:
   - jekyll-sitemap
   - jemoji
   - jekyll-seo-tool
+  - jekyll-redirect-from
