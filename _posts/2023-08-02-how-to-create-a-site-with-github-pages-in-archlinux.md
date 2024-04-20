@@ -1,7 +1,7 @@
 ---
 layout: article
 comments: true
-permalink: 2023/08/02/how-to-create-a-site-with-github-pages-in-archlinux/
+permalink: 2024/04/20/how-to-create-a-site-with-github-pages-in-archlinux/
 title: How to create a site with Github Pages (in ArchLinux) - Definitive and Simple Guide
 ---
 
