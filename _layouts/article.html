@@ -2,6 +2,9 @@
 layout: page
 type: article
 ---
+
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+
 {%- include snippets/assign.html
   target = site.data.variables.default.page.sharing
   source0=layout.sharing source1=page.sharing -%}
