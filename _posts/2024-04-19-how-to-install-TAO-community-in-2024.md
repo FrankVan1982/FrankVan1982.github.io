@@ -32,6 +32,7 @@ Make sure the server is up-to-date:
 sudo apt update
 sudo apt dist-upgrade
 ```
+
 Now, install software-properties-common:
 ```sh
 sudo apt install software-properties-common
@@ -39,7 +40,8 @@ sudo apt install software-properties-common
 
 Add PHP 7.4 ppa:
 ```sh
-sudo add-apt-repository ppa:ondrej/php -y
+LC_ALL=C.UTF8 sudo add-apt-repository ppa:ondrej/php -y
+LC_ALL=C.UTF8 sudo add-apt-repository ppa:ondrej/apache2 -y
 ```
 
 You will need to **install** the required packages:
@@ -53,7 +55,7 @@ php7.4-xml \
 php7.4-zip \
 php7.4-curl \
 php7.4-mbstring \
-libapache2-mod-php \
+libapache2-mod-php7.4 \
 php7.4-mysql \
 curl \
 wget \
@@ -65,7 +67,7 @@ npm
 
 Now, install the components needed for build:
 ```sh
-sudo apt install php-dev libmcrypt-dev php-pear
+sudo apt install php7.4-dev libmcrypt-dev php7.4-pear
 sudo pecl channel-update pecl.php.net
 sudo pecl install mcrypt-1.0.7
 ```
