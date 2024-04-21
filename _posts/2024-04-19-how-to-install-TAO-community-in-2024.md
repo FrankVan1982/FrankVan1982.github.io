@@ -2,10 +2,10 @@
 layout: article
 comments: true
 permalink: 2024/04/19/how-to-install-tao-community-in-ubuntu-debian-servers/
-title: How to install TAO in Ubuntu and Debian servers (2024 - updated guide
+title: How to install TAO in Ubuntu and Debian servers (2024 - updated guide)
 ---
 
-Many are the reason for install TAO Community [Testing Assistée par Ordinateur](https://taotesting.com).
+Many are the reason for install TAO Community ([Testing Assistée par Ordinateur](https://taotesting.com)).
 
 TAO is a computer-based test platform. With TAO, you can create test. It is used by many important entities in the world.
 
@@ -24,25 +24,37 @@ So, let's go!
 
 ### Server preparation
 
+You have to install PHP 7.4, but your system will install automatically PHP 8.1.
+With this commnads, we can install PHP 7.4.
+
 Make sure the server is up-to-date:
 ```sh
 sudo apt update
 sudo apt dist-upgrade
 ```
+Now, install software-properties-common:
+```sh
+sudo apt install software-properties-common
+```
 
-Once your server is updated, you will need to **install** the required packages:
+Add PHP 7.4 ppa:
+```sh
+sudo add-apt-repository ppa:ondrej/php -y
+```
+
+You will need to **install** the required packages:
 ```sh
 sudo apt install apache2 \
-php \
-php-cli \
-php-common \
+php7.4 \
+php7.4-cli \
+php7.4-common \
 mariadb-server \
-php-xml \
-php-zip \
-php-curl \
-php-mbstring \
+php7.4-xml \
+php7.4-zip \
+php7.4-curl \
+php7.4-mbstring \
 libapache2-mod-php \
-php-mysql \
+php7.4-mysql \
 curl \
 wget \
 zip \
@@ -58,14 +70,9 @@ sudo pecl channel-update pecl.php.net
 sudo pecl install mcrypt-1.0.7
 ```
 
-Launch this command, needed for verify php version:
-```sh
-php -v
-```
-
 Add *mcrypt* to the extensions section of php.ini:
 ```sh
-sudo nano /etc/php/*YOUR PHP VERSION, LIKE 8.1*/cli/php.ini
+sudo nano /etc/php/7.4/cli/php.ini
 extension=mcrypt.so
 ```
 
@@ -80,7 +87,7 @@ php -r "unlink('composer-setup.php');"
 Create a new database and user for TAO (in this example, the database and username will be "tao"):
 ```sh
 sudo su
-mysql
+mariadb
 CREATE DATABASE tao_db;
 CREATE USER 'tao'@'localhost' IDENTIFIED BY 'tao';
 GRANT ALL PRIVILEGES ON tao_db.* TO 'tao'@'localhost';
@@ -89,13 +96,13 @@ quit
 exit
 ```
 
-> KEEP ATTENTION to the semicolon at the end of every command. In MySQL language, they are required.
+> KEEP ATTENTION to the semicolon at the end of every command. In MySQL/MariaDB language, they are required.
 
 
 ### Apache2 configuration
 
 Using the editor of your choice, you will need to configure the *ServerName* as well as the directory you are installing TAO in.
-If you are using virtual hosts, you will need to follow the Apache instructions which are here:
+If you are using virtual hosts, you will need to follow the Apache instructions:
 ```sh
 sudo nano /etc/apache2/apache2.conf
 ```
@@ -140,6 +147,7 @@ sudo mv tao /var/www/html/tao
 Change ownership to the Apache user:
 ```sh
 sudo chown -R www-data:www-data /var/www/html/tao
+cd /var/www/html/tao
 sudo chmod -R 755 ./
 ```
 
@@ -173,4 +181,4 @@ sudo -u www-data php tao/scripts/taoInstall.php \
 -e taoCe
 ```
 
-Alternatively you can install TAO in your browser by going to "http://<hostname or IP>/tao" if you have followed the instructions above. If you have not followed the above instructions for your Apache configuration you will need to adjust the URL as appropriate.
+Alternatively you can install TAO in your browser by going to "http://(hostname or IP)/tao" if you have followed the instructions above. If you have not followed the above instructions for your Apache configuration you will need to adjust the URL as appropriate.
