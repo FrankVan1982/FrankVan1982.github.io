@@ -11,16 +11,13 @@ TAO is a computer-based test platform. With TAO, you can create test. It is used
 
 But, how can I install TAO without problems? I'm here to help you!
 
-> [!IMPORTANT]
-> The [original guide](https://www.taotesting.com/user-guide/installation-and-upgrade/ubuntu-and-debian/) isn't updated!
+> The [original guide](https://www.taotesting.com/user-guide/installation-and-upgrade/ubuntu-and-debian/) isn't updated! {:.info}
 
-> [!WARNING]
-> I'm NOT RESPONSABLE of any damage caused on your computer.
-> You should use a VM if you aren't installing the program for production purposes.
+> I'm NOT RESPONSABLE of any damage caused on your computer. {:.warning}
+> You should use a VM if you aren't installing the program for production purposes. {:.warning}
 
-> [!NOTE]
-> We'll install the Community version of TAO, which is updated every month.
-> If you want to install the classic version, [there's my other guide]
+> We'll install the Community version of TAO, which is updated every month. {:.info}
+> If you want to install the classic version, [there's my other guide] {:.info}
 
 So, let's go!
 
