@@ -11,11 +11,15 @@ TAO is a computer-based test platform. With TAO, you can create test. It is used
 
 But, how can I install TAO without problems? I'm here to help you!
 
-> KEEP ATTENTION: the [original guide](https://www.taotesting.com/user-guide/installation-and-upgrade/ubuntu-and-debian/) isn't updated!
+> [!IMPORTANT]
+> The [original guide](https://www.taotesting.com/user-guide/installation-and-upgrade/ubuntu-and-debian/) isn't updated!
 
-> WARNING!: I'm NOT RESPONSABLE of any damage caused on your computer.
+> [!WARNING]
+> I'm NOT RESPONSABLE of any damage caused on your computer.
 > You should use a VM if you aren't installing the program for production purposes.
-> KEEP NOTE: We'll install the Community version of TAO, which is updated every month.
+
+> [!NOTE]
+> We'll install the Community version of TAO, which is updated every month.
 > If you want to install the classic version, [there's my other guide]
 
 So, let's go!
@@ -98,6 +102,7 @@ quit
 exit
 ```
 
+> [!IMPORTANT]
 > KEEP ATTENTION to the semicolon at the end of every command. In MySQL/MariaDB language, they are required.
 
 
