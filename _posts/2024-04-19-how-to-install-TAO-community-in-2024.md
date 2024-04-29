@@ -5,28 +5,27 @@ permalink: 2024/04/19/how-to-install-tao-community-in-ubuntu-debian-servers/
 title: How to install TAO in Ubuntu and Debian servers (2024 - updated guide)
 ---
 
-Many are the reason for install TAO Community ([Testing Assistée par Ordinateur](https://taotesting.com)).
+There are many reasons to install [TAO](https://taotesting.com). 
 
-TAO is a computer-based test platform. With TAO, you can create test. It is used by many important entities in the world.
+TAO is a computer-based test platform that allows you to create tests. It is used by many important entities in the world.
+
+TAO stands for "Testing Assistée par Ordinateur" (in French) and "Open Assessments Testing" (in English).
 
 But, how can I install TAO without problems? I'm here to help you!
 
-The [original guide](https://www.taotesting.com/user-guide/installation-and-upgrade/ubuntu-and-debian/) isn't updated! {:.info}
+> **NOTE**: The [original guide](https://www.taotesting.com/user-guide/installation-and-upgrade/ubuntu-and-debian/) isn't updated!
 
-I'm NOT RESPONSABLE of any damage caused on your computer. {:.warning}
-You should use a VM if you aren't installing the program for production purposes. {:.warning}
+> **WARNING**: I am **not responsible** for any damage caused to your computer.
 
-We'll install the Community version of TAO, which is updated every month. {:.info}
-If you want to install the classic version, [there's my other guide] {:.info}
+> **TIP**: Use a VM if you aren't installing the program for production purposes.
 
-So, let's go!
 
 ## How-to guide
 
 ### Server preparation
 
-You have to install PHP 7.4, but your system will install automatically PHP 8.1.
-With this commnads, we can install PHP 7.4.
+You must install PHP 8.2, but your system will install PHP 8.1 automatically.
+These commands will install PHP 8.2.
 
 Make sure the server is up-to-date:
 ```sh
@@ -39,7 +38,7 @@ Now, install software-properties-common:
 sudo apt install software-properties-common
 ```
 
-Add PHP 7.4 ppa:
+Add PHP 8.2 and Apache2 ppa:
 ```sh
 LC_ALL=C.UTF8 sudo add-apt-repository ppa:ondrej/php -y
 LC_ALL=C.UTF8 sudo add-apt-repository ppa:ondrej/apache2 -y
@@ -48,16 +47,16 @@ LC_ALL=C.UTF8 sudo add-apt-repository ppa:ondrej/apache2 -y
 You will need to **install** the required packages:
 ```sh
 sudo apt install apache2 \
-php7.4 \
-php7.4-cli \
-php7.4-common \
+php8.2 \
+php8.2-cli \
+php8.2-common \
 mariadb-server \
-php7.4-xml \
-php7.4-zip \
-php7.4-curl \
-php7.4-mbstring \
-libapache2-mod-php7.4 \
-php7.4-mysql \
+php8.2-xml \
+php8.2-zip \
+php8.2-curl \
+php8.2-mbstring \
+libapache2-mod-php8.2 \
+php8.2-mysql \
 curl \
 wget \
 zip \
@@ -68,14 +67,14 @@ npm
 
 Now, install the components needed for build:
 ```sh
-sudo apt install php7.4-dev libmcrypt-dev php7.4-pear
+sudo apt install php-dev libmcrypt-dev php-pear
 sudo pecl channel-update pecl.php.net
 sudo pecl install mcrypt-1.0.7
 ```
 
 Add *mcrypt* to the extensions section of php.ini:
 ```sh
-sudo nano /etc/php/7.4/cli/php.ini
+sudo nano /etc/php/8.2/cli/php.ini
 extension=mcrypt.so
 ```
 
@@ -99,14 +98,13 @@ quit
 exit
 ```
 
-> [!IMPORTANT]
-> KEEP ATTENTION to the semicolon at the end of every command. In MySQL/MariaDB language, they are required.
+> **WARNING**: You must pay close attention to the semicolon at the end of every command. In MySQL/MariaDB, they are required.
 
 
 ### Apache2 configuration
 
 Using the editor of your choice, you will need to configure the *ServerName* as well as the directory you are installing TAO in.
-If you are using virtual hosts, you will need to follow the Apache instructions:
+If you are using virtual hosts, you will need to follow the [Apache instructions](https://httpd.apache.org):
 ```sh
 sudo nano /etc/apache2/apache2.conf
 ```
@@ -118,10 +116,12 @@ ServerName <hostname or IP>
 
 Search in the code the *Directory* section and configure *Directory*:
 ```sh
-<Directory /var/www/html/tao>
+<Directory /var/www/html/tests>
         Options FollowSymLinks MultiViews
         AllowOverride all
         Allow from all
+        Require all granted
+        Order allow,deny
 </Directory>
 ```
 
@@ -137,37 +137,43 @@ sudo systemctl restart apache2
 ```
 
 
-### Install TAO Community
+### Install TAO
 
-Download TAO Community 2024.04.1 version and unzip it:
+I've forked the GitHub project and updated the principal package (package-tao) because it isn't correctly updated.
+
+Download TAO via Git:
 ```sh
 cd
-wget https://github.com/oat-sa/tao-community/archive/refs/tags/2024.04.1.zip
-unzip 2024.04.1zip
-mv tao-community-2024.04 tao/
-sudo mv tao /var/www/html/tao
+git clone https://github.com/FrankVan1982/package-tao.git
+mv package-tao/ tests/
+sudo cp -r tests/ /var/www/html/tests
 ```
 
-Change ownership to the Apache user:
+Change ownership:
 ```sh
-sudo chown -R www-data:www-data /var/www/html/tao
-cd /var/www/html/tao
+cd /var/www/html/tests
 sudo chmod -R 755 ./
 ```
 
-Install TAO components on the server utilizing *composer* and then change ownership of the newly created tao directory to the Apache user:
+Install TAO components on the server utilizing *composer*:
 ```sh
-cd /var/www/html/tao
+cd /var/www/html/tests
 sudo composer install
-sudo chown -R www-data tao
 ```
 
 Install MathJax on the server if necessary:
 ```sh
-cd /var/www/html/tao
+cd /var/www/html/tests
 mkdir MathJax
 cd MathJax
 npm install mathjax
+```
+
+Create needed directories:
+```sh
+cd /var/www/html/tests/
+sudo mkdir config
+sudo chmod -R 755 config
 ```
 
 You can now complete your installation either on the command line using the following command:
